@@ -40,7 +40,7 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    :root { --flag-opacity: 0.08; }
+    :root { --flag-opacity: 0.12; }
 
     /* Flag copies pattern (background decorative layer) */
     #flagPattern {
@@ -78,7 +78,7 @@
 
     @keyframes floatY {
       0%   { transform: translateY(0); }
-      50%  { transform: translateY(-28px); }
+      50%  { transform: translateY(-40px); }
       100% { transform: translateY(0); }
     }
 
@@ -87,7 +87,7 @@
       animation-name: floatY;
       animation-timing-function: ease-in-out;
       animation-iteration-count: infinite;
-      animation-duration: 24s; /* overridden inline with --dur */
+      animation-duration: 18s; /* overridden inline with --dur */
       animation-delay: 0s;     /* overridden inline with --delay */
     }
 
@@ -97,7 +97,7 @@
 
     /* small screens tweak to avoid too many elements */
     @media (max-width: 480px) {
-      :root { --flag-opacity: 0.06; }
+      :root { --flag-opacity: 0.08; }
       .flag-copy .inner { font-size: clamp(1.8rem, 10vw, 4rem); }
     }
 
@@ -141,7 +141,7 @@
     <div id="mobileMenu" class="hidden md:hidden border-t border-black/30">
       <div class="px-6 py-4 flex flex-col gap-3">
         <a href="#about" class="text-sm py-2 rounded hover:bg-white/3">О подразделении</a>
-        <a href="#activities" class="text-sm py-2 rounded hover:bg.white/3">Деятельность</a>
+        <a href="#activities" class="text-sm py-2 rounded hover:bg-white/3">Деятельность</a>
         <a href="#contact" class="text-sm py-2 rounded hover:bg-white/3">Обратная связь</a>
       </div>
     </div>
@@ -181,7 +181,7 @@
         <div class="bg-panel-gray p-8 rounded-lg border border-black/40 shadow-lg reveal" data-delay="80">
           <h3 class="text-xl font-semibold mb-3">О подразделении</h3>
           <p class="text-gray-300/90 leading-relaxed">
-            Подразделение создано для выполнения задач повышенной сложности в условиях, требующих высокой моб�[...]
+            Подразделение создано для выполнения задач повышенной сложности в условиях, требующих высокой мобильности, точного планирования и слаженной командной работы.
           </p>
         </div>
 
@@ -207,7 +207,7 @@
 
               <!-- Slide 1 -->
               <div class="swiper-slide relative rounded overflow-hidden">
-                <img src="assets/images/1.jpg" alt="Тактическая подготовка" class="absolute inset-0 w-full h-full object-cover">
+                <img src="/assets/images/1.jpg" alt="Тактическая подготовка" class="absolute inset-0 w-full h-full object-cover">
                 <div class="relative z-10 bg-black/40 p-6 rounded text-center max-w-xl mx-auto">
                   <h4 class="text-lg font-semibold">Тактическая подготовка</h4>
                   <p class="text-sm text-gray-200/90 mt-2">Интенсивные тренировки, отработка сценариев и командная работа.</p>
@@ -216,7 +216,7 @@
 
               <!-- Slide 2 -->
               <div class="swiper-slide relative rounded overflow-hidden">
-                <img src="assets/images/2.jpg" alt="Разведывательные операции" class="absolute inset-0 w-full h-full object-cover">
+                <img src="/assets/images/2.jpg" alt="Разведывательные операции" class="absolute inset-0 w-full h-full object-cover">
                 <div class="relative z-10 bg-black/40 p-6 rounded text-center max-w-xl mx-auto">
                   <h4 class="text-lg font-semibold">Разведывательные операции</h4>
                   <p class="text-sm text-gray-200/90 mt-2">Действия в сложных условиях с упором на точность и скрытность.</p>
@@ -225,7 +225,7 @@
 
               <!-- Slide 3 -->
               <div class="swiper-slide relative rounded overflow-hidden">
-                <img src="assets/images/3.jpg" alt="Контрдиверсионная защита" class="absolute inset-0 w-full h-full object-cover">
+                <img src="/assets/images/3.jpg" alt="Контрдиверсионная защита" class="absolute inset-0 w-full h-full object-cover">
                 <div class="relative z-10 bg-black/40 p-6 rounded text-center max-w-xl mx-auto">
                   <h4 class="text-lg font-semibold">Контрдиверсионная защита</h4>
                   <p class="text-sm text-gray-200/90 mt-2">Профилактика угроз и защита ключевых объектов.</p>
@@ -261,24 +261,24 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <label class="block">
               <span class="text-xs text-gray-300">ФИО</span>
-              <input type="text" name="name" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outl[...]
+              <input type="text" name="name" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/10">
             </label>
 
             <label class="block">
               <span class="text-xs text-gray-300">Телефон</span>
-              <input type="tel" name="phone" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outl[...]
+              <input type="tel" name="phone" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/10">
             </label>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <label class="block">
               <span class="text-xs text-gray-300">Электронная почта</span>
-              <input type="email" name="email" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:ou[...]
+              <input type="email" name="email" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/10">
             </label>
 
             <label class="block">
               <span class="text-xs text-gray-300">Служебный статус</span>
-              <select name="service_status" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white focus:outline-none focus:ring-2"[...]
+              <select name="service_status" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white focus:outline-none focus:ring-2">
                 <option value="">— Выберите статус —</option>
                 <option>Служил срочную службу</option>
                 <option>Не служил, есть приписное</option>
@@ -289,7 +289,7 @@
           </div>
 
           <div class="flex items-center justify-between gap-4">
-            <button id="submitBtn" type="submit" class="inline-flex items-center gap-3 px-5 py-3 rounded-md bg-accent-blue text-white font-semibold hover:scale-105 transform transition reveal" da[...]
+            <button id="submitBtn" type="submit" class="inline-flex items-center gap-3 px-5 py-3 rounded-md bg-accent-blue text-white font-semibold hover:scale-105 transform transition reveal" data-delay="0">
               <svg id="btnSpinner" class="hidden animate-spin w-4 h-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
@@ -355,8 +355,8 @@
             el.style.top = top + '%';
 
             // randomize subtle differences
-            const dur = (18 + Math.random() * 18).toFixed(2) + 's';
-            const delay = (Math.random() * -18).toFixed(2) + 's'; // negative to desync
+            const dur = (12 + Math.random() * 12).toFixed(2) + 's';
+            const delay = (Math.random() * -12).toFixed(2) + 's'; // negative to desync
             const rot = (-18 + Math.random() * 8).toFixed(2) + 'deg';
             el.style.setProperty('--dur', dur);
             el.style.setProperty('--delay', delay);
