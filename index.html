@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Специальное подразделение — Набор</title>
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind config extension for custom colors (olive drab / deep grays)
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'olive-drab': '#556B2F',
+            'military-olive': '#4b5320',
+            'deep-gray': '#0b0b0b',
+            'panel-gray': '#111214',
+            'accent-red': '#b71c1c',
+            'accent-blue': '#0b61ac'
+          },
+          fontFamily: {
+            display: ['Oswald', 'ui-sans-serif', 'system-ui'],
+            body: ['Inter', 'ui-sans-serif', 'system-ui'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Swiper CSS (CDN) -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+  <style>
+    /* Page base */
+    body {
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(40,40,40,0.35), transparent),
+                  linear-gradient(180deg, #050505, #0b0b0b 60%);
+      color: #e6e6e6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Rotated giant background text: very subtle texture */
+    .flag-gradient-text {
+      background: linear-gradient(90deg, #ffffff 0%, #0b61ac 45%, #b71c1c 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      opacity: 0.06; /* very subtle so it doesn't interfere */
+    }
+
+    /* Smooth scroll offset for sticky header */
+    :target:before {
+      content: "";
+      display: block;
+      height: 84px; /* header height */
+      margin-top: -84px;
+    }
+
+    /* Hero background placeholder */
+    .hero-bg {
+      background-image: url('https://images.unsplash.com/photo-1533560902384-6ec2253a1b1c?q=80&w=1600&auto=format&fit=crop&sat=-100'); /* placeholder */
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Reveal animation helper (fade + slight translate) */
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px) scale(.995);
+      transition: opacity 600ms cubic-bezier(.2,.9,.2,1), transform 600ms cubic-bezier(.2,.9,.2,1);
+      will-change: opacity, transform;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Small accessible focus glow for inputs using pseudo-element fallback if needed */
+    .input-focus-glow:focus {
+      box-shadow: 0 6px 24px rgba(11,97,172,0.14);
+    }
+
+    /* Make swiper nav buttons more visible on dark bg */
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #fff;
+      opacity: 0.9;
+    }
+
+    /* Slightly reduce text selection glare in hero */
+    .hero-content *::selection {
+      background: rgba(255,255,255,0.06);
+    }
+  </style>
+</head>
+<body class="antialiased font-body">
+
+  <!-- Navigation (sticky) -->
+  <header class="sticky top-0 z-50 bg-gradient-to-b from-black/80 via-black/50 to-transparent backdrop-blur-sm border-b border-black/40">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#hero" class="flex items-center gap-3">
+        <svg class="w-10 h-10 text-white" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="64" height="64" rx="6" fill="#0b0b0b"></rect>
+          <g fill="#fff" opacity="0.95">
+            <circle cx="32" cy="20" r="3"></circle>
+            <path d="M16 46c6-6 20-6 32 0-6 6-20 6-32 0z"></path>
+          </g>
+        </svg>
+        <span class="text-lg font-display tracking-wider">Спецподразделение</span>
+      </a>
+
+      <nav aria-label="Main navigation" class="hidden md:flex items-center gap-6">
+        <a href="#about" class="nav-link text-sm px-3 py-2 transform transition duration-200 rounded hover:scale-105 hover:text-white/90 active:scale-95">О подразделении</a>
+        <a href="#activities" class="nav-link text-sm px-3 py-2 transform transition duration-200 rounded hover:scale-105 hover:text-white/90 active:scale-95">Деятельность</a>
+        <a href="#recruit" class="nav-link text-sm px-3 py-2 transform transition duration-200 rounded hover:scale-105 hover:text-white/90 active:scale-95">Набор</a>
+        <a href="#contact" class="nav-link text-sm px-3 py-2 transform transition duration-200 rounded hover:scale-105 hover:text-white/90 active:scale-95">Контакты</a>
+      </nav>
+
+      <div class="md:hidden">
+        <button id="mobileMenuBtn" aria-label="Toggle menu" class="p-2 rounded hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/10">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-black/30">
+      <div class="px-6 py-4 flex flex-col gap-3">
+        <a href="#about" class="text-sm py-2 rounded hover:bg-white/3">О подразделении</a>
+        <a href="#activities" class="text-sm py-2 rounded hover:bg-white/3">Деятельность</a>
+        <a href="#recruit" class="text-sm py-2 rounded hover:bg-white/3">Набор</a>
+        <a href="#contact" class="text-sm py-2 rounded hover:bg-white/3">Контакты</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section id="hero" class="relative hero-bg min-h-screen flex items-center justify-center">
+      <!-- Rotated background typographic element -->
+      <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+        <h1 class="flag-gradient-text transform rotate-45 text-[7rem] md:text-[9rem] lg:text-[12rem] leading-none font-extrabold select-none">
+          Специальное подразделение
+        </h1>
+      </div>
+
+      <!-- Dark overlay for high contrast -->
+      <div class="absolute inset-0 bg-black/72"></div>
+
+      <!-- Hero content overlay -->
+      <div class="relative z-10 max-w-5xl mx-auto px-6 py-24 text-center hero-content">
+        <!-- SVG placeholder for Russian Coat of Arms (stylized) -->
+        <div class="mx-auto w-36 h-36 rounded-full bg-black/60 border border-white/8 flex items-center justify-center mb-6 reveal" data-delay="100">
+          <svg viewBox="0 0 120 120" class="w-24 h-24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="120" height="120" rx="16" fill="none"></rect>
+            <!-- stylized double-headed eagle placeholder -->
+            <g fill="#fff" opacity="0.95">
+              <path d="M30 70c10-18 40-18 50 0 0 0-10-10-20-10s-20 10-30 10z"/>
+              <circle cx="45" cy="40" r="4"></circle>
+              <circle cx="75" cy="40" r="4"></circle>
+            </g>
+          </svg>
+        </div>
+
+        <h2 class="text-3xl md:text-5xl lg:text-6xl font-display font-extrabold tracking-tight leading-tight mb-4 reveal" data-delay="220">
+          Отбор и подготовка бойцов специального назначения
+        </h2>
+        <p class="max-w-3xl mx-auto text-sm md:text-base text-gray-300/90 mb-8 reveal" data-delay="340">
+          Мы — элитное подразделение, выполняющее сложнейшие задачи и операции. Отбор строгий, подготовка интенсивная, служба — честью и долгом.
+        </p>
+
+        <div class="flex items-center justify-center gap-4 reveal" data-delay="460">
+          <a href="#recruit" class="inline-flex items-center gap-3 px-6 py-3 rounded-md bg-accent-red text-white font-semibold shadow hover:scale-105 transform transition">Подать заявку</a>
+          <a href="#activities" class="inline-flex items-center gap-3 px-6 py-3 rounded-md bg-white/6 text-white hover:scale-105 transform transition">Узнать больше</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="max-w-7xl mx-auto px-6 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        <div class="bg-panel-gray p-8 rounded-lg border border-black/40 shadow-lg reveal" data-delay="80">
+          <h3 class="text-xl font-semibold mb-3">О подразделении</h3>
+          <p class="text-gray-300/90 leading-relaxed">
+            Подразделение создано для выполнения задач повышенной сложности в условиях, требующих высокой мобильности, точности и конфиденциальности. Мы ценим дисциплину, мастерство и готовность действовать в интересах безопасности.
+          </p>
+        </div>
+
+        <div class="bg-panel-gray p-8 rounded-lg border border-black/40 shadow-lg reveal" data-delay="160">
+          <h3 class="text-xl font-semibold mb-3">Наши задачи</h3>
+          <ul class="list-disc pl-5 text-gray-300/90 leading-relaxed space-y-2">
+            <li>Специальные разведывательно-ударные операции</li>
+            <li>Контрдиверсионная и антитеррористическая деятельность</li>
+            <li>Обеспечение безопасности стратегических объектов</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTIVITIES / SLIDER -->
+    <section id="activities" class="py-16 bg-gradient-to-b from-transparent to-black/10">
+      <div class="max-w-7xl mx-auto px-6">
+        <h3 class="text-2xl font-semibold mb-6 reveal" data-delay="80">Деятельность — в кадре</h3>
+
+        <div class="bg-panel-gray rounded-lg p-6 border border-black/30 shadow-lg reveal" data-delay="160">
+          <div class="swiper mySwiper h-64 md:h-96 rounded overflow-hidden">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide flex items-center justify-center bg-cover bg-center rounded" style="background-image:url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1600&auto=format&fit=crop&sat=-100');">
+                <div class="bg-black/40 p-6 rounded text-center max-w-xl">
+                  <h4 class="text-lg font-semibold">Тактическая подготовка</h4>
+                  <p class="text-sm text-gray-200/90 mt-2">Интенсивные тренировки, отработка сценариев и командная работа.</p>
+                </div>
+              </div>
+
+              <div class="swiper-slide flex items-center justify-center bg-cover bg-center rounded" style="background-image:url('https://images.unsplash.com/photo-1505238680356-667803448bb6?q=80&w=1600&auto=format&fit=crop&sat=-100');">
+                <div class="bg-black/40 p-6 rounded text-center max-w-xl">
+                  <h4 class="text-lg font-semibold">Разведывательные операции</h4>
+                  <p class="text-sm text-gray-200/90 mt-2">Действия в сложных условиях с упором на точность и скрытность.</p>
+                </div>
+              </div>
+
+              <div class="swiper-slide flex items-center justify-center bg-cover bg-center rounded" style="background-image:url('https://images.unsplash.com/photo-1544986581-efac024faf62?q=80&w=1600&auto=format&fit=crop&sat=-100');">
+                <div class="bg-black/40 p-6 rounded text-center max-w-xl">
+                  <h4 class="text-lg font-semibold">Контрдиверсионная защита</h4>
+                  <p class="text-sm text-gray-200/90 mt-2">Профилактика угроз и защита ключевых объектов.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pagination / Navigation -->
+            <div class="swiper-pagination mt-4"></div>
+            <div class="swiper-button-prev text-white"></div>
+            <div class="swiper-button-next text-white"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECRUITMENT FORM -->
+    <section id="recruit" class="max-w-4xl mx-auto px-6 py-16">
+      <div class="bg-panel-gray rounded-lg border border-black/30 p-8 shadow-lg reveal" data-delay="80">
+        <h3 class="text-2xl font-semibold mb-4">Заявка на отбор</h3>
+        <p class="text-sm text-gray-300/90 mb-6">Заполните форму — мы свяжемся для предварительного отбора и инструктажа.</p>
+
+        <!-- Form posts to Formspree; AJAX handles submission to avoid full page reload -->
+        <form id="recruitForm"
+              action="https://formspree.io/f/xjybooap"
+              method="POST"
+              class="space-y-4"
+              novalidate
+              autocomplete="on"
+              aria-describedby="formHelp"
+        >
+          <!-- Optional: subject for the Formspree email -->
+          <input type="hidden" name="_subject" value="Новая заявка с лендинга">
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <label class="block">
+              <span class="text-xs text-gray-300">ФИО</span>
+              <input type="text" name="name" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent-blue focus:border-accent-blue transition duration-200 input-focus-glow reveal" data-delay="120" placeholder="Иван Иванов" />
+            </label>
+
+            <label class="block">
+              <span class="text-xs text-gray-300">Телефон</span>
+              <input type="tel" name="phone" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent-blue focus:border-accent-blue transition duration-200 input-focus-glow reveal" data-delay="160" placeholder="+7 (___) ___-__-__" />
+            </label>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <label class="block">
+              <span class="text-xs text-gray-300">Электронная почта</span>
+              <input type="email" name="email" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent-blue focus:border-accent-blue transition duration-200 input-focus-glow reveal" data-delay="200" placeholder="you@example.com" />
+            </label>
+
+            <label class="block">
+              <span class="text-xs text-gray-300">Служебный статус</span>
+              <select name="service_status" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-accent-blue focus:border-accent-blue transition duration-200 input-focus-glow reveal" data-delay="240">
+                <option value="">— Выберите статус —</option>
+                <option>Служил срочную службу</option>
+                <option>Не служил, есть приписное</option>
+                <option>Не служил, есть военный билет</option>
+                <option>Служил как контрактник</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="flex items-center justify-between gap-4">
+            <button id="submitBtn" type="submit" class="inline-flex items-center gap-3 px-5 py-3 rounded-md bg-accent-blue text-white font-semibold hover:scale-105 transform transition reveal" data-delay="320" aria-live="polite">
+              <svg id="btnSpinner" class="hidden animate-spin w-4 h-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+              </svg>
+              <span id="btnText">Отправить заявку</span>
+            </button>
+
+            <div class="flex-1 text-right">
+              <!-- Accessible status region -->
+              <div id="formStatus" class="text-sm" role="status" aria-live="polite" aria-atomic="true"></div>
+              <div id="formHelp" class="sr-only">Поля обязательны для заполнения.</div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- CONTACT / FOOTER -->
+    <section id="contact" class="max-w-7xl mx-auto px-6 py-12 reveal" data-delay="80">
+      <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+        <div class="text-gray-300/90">
+          <h4 class="font-semibold mb-2">Контакт</h4>
+          <p class="text-sm">Оперативный отдел: +7 (900) 000-00-00</p>
+          <p class="text-sm">E-mail: ops@example.org</p>
+        </div>
+
+        <div class="text-gray-400 text-sm">
+          <p>Адрес офиса: г. Москва, конфиденциально</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="border-t border-black/30 py-6">
+      <div class="max-w-7xl mx-auto px-6 text-center text-sm text-gray-500">
+        © <span id="year"></span> Специальное подразделение — Все права защищены.
+      </div>
+    </footer>
+  </main>
+
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+  <script>
+    // Initialize Swiper
+    const swiper = new Swiper('.mySwiper', {
+      loop: true,
+      speed: 700,
+      slidesPerView: 1,
+      spaceBetween: 20,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      keyboard: {
+        enabled: true,
+      },
+      grabCursor: true,
+    });
+
+    // Mobile menu toggle
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileBtn?.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Scroll-spy for nav link active state (IntersectionObserver)
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = Array.from(navLinks).map(a => {
+      const id = a.getAttribute('href')?.slice(1);
+      return id ? document.getElementById(id) : null;
+    }).filter(Boolean);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.id;
+        const link = document.querySelector('.nav-link[href="#' + id + '"]');
+        if (entry.isIntersecting) {
+          link?.classList.add('text-accent-red', 'scale-105');
+          link?.classList.remove('text-gray-300');
+        } else {
+          link?.classList.remove('text-accent-red', 'scale-105');
+        }
+      });
+    }, { root: null, threshold: 0.45 });
+
+    sections.forEach(s => observer.observe(s));
+
+    // Reveal on scroll (fade + translate)
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const delay = el.dataset.delay ? parseInt(el.dataset.delay, 10) : 0;
+          el.style.transitionDelay = delay + 'ms';
+          el.classList.add('active');
+          revealObserver.unobserve(el); // animate once
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(e => revealObserver.observe(e));
+
+    // Recruit form: AJAX submission to Formspree
+    (function () {
+      const form = document.getElementById('recruitForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const btnText = document.getElementById('btnText');
+      const btnSpinner = document.getElementById('btnSpinner');
+      const formStatus = document.getElementById('formStatus');
+
+      if (!form) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Basic client-side validation (HTML required attributes usually handle this)
+        const formData = new FormData(form);
+        if (!formData.get('name') || !formData.get('phone') || !formData.get('email') || !formData.get('service_status')) {
+          formStatus.textContent = 'Пожалуйста, заполните все обязательные поля.';
+          formStatus.className = 'text-sm text-amber-400';
+          return;
+        }
+
+        // UI: show sending state
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-60', 'pointer-events-none');
+        btnSpinner.classList.remove('hidden');
+        btnText.textContent = 'Отправка...';
+        formStatus.textContent = 'Отправка заявки...';
+        formStatus.className = 'text-sm text-gray-300';
+
+        try {
+          const response = await fetch(form.action, {
+            method: form.method || 'POST',
+            headers: {
+              'Accept': 'application/json'
+            },
+            body: formData
+          });
+
+          if (response.ok) {
+            // success
+            btnSpinner.classList.add('hidden');
+            btnText.textContent = 'Отправлено';
+            formStatus.textContent = 'Спасибо! Ваша заявка принята. Мы свяжемся с вами в ближайшее время.';
+            formStatus.className = 'text-sm text-green-400';
+            form.reset();
+
+            // re-enable button after a short delay and restore text
+            setTimeout(() => {
+              submitBtn.disabled = false;
+              submitBtn.classList.remove('opacity-60', 'pointer-events-none');
+              btnText.textContent = 'Отправить заявку';
+            }, 4000);
+          } else {
+            // handle validation errors from Formspree (returns JSON)
+            const data = await response.json().catch(() => null);
+            const errMsg = data && data.error ? data.error : 'Ошибка при отправке. Пожалуйста, попробуйте ещё раз.';
+            btnSpinner.classList.add('hidden');
+            btnText.textContent = 'Попробовать снова';
+            formStatus.textContent = errMsg;
+            formStatus.className = 'text-sm text-rose-400';
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('opacity-60', 'pointer-events-none');
+          }
+        } catch (err) {
+          console.error('Form submission error', err);
+          btnSpinner.classList.add('hidden');
+          btnText.textContent = 'Попробовать снова';
+          formStatus.textContent = 'Сетевой сбой. Проверьте соединение и попробуйте снова.';
+          formStatus.className = 'text-sm text-rose-400';
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('opacity-60', 'pointer-events-none');
+        }
+      });
+    })();
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
