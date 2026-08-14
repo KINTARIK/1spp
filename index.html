@@ -40,54 +40,79 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    .flag-gradient-text {
+    :root { --flag-opacity: 0.08; }
+
+    /* Flag copies pattern (background decorative layer) */
+    #flagPattern {
+      position: fixed;
+      inset: 0;
+      z-index: 0; /* behind main content which uses z-10 on hero content */
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .flag-copy {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(-16deg);
+      will-change: transform, opacity;
+      display: block;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .flag-copy .inner {
+      font-family: Oswald, ui-sans-serif, system-ui;
+      font-weight: 800;
+      font-size: clamp(2.5rem, 6vw, 8rem);
+      line-height: 0.9;
       background: linear-gradient(90deg, #ffffff 0%, #0b61ac 45%, #b71c1c 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      opacity: 0.06;
+      opacity: var(--flag-opacity);
+      display: inline-block;
+      transform: translateZ(0);
     }
 
-    :target:before {
-      content: "";
-      display: block;
-      height: 84px;
-      margin-top: -84px;
+    @keyframes floatY {
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(-28px); }
+      100% { transform: translateY(0); }
     }
 
-    .hero-bg {
-      background-image: url('https://images.unsplash.com/photo-1533560902384-6ec2253a1b1c?q=80&w=1600&auto=format&fit=crop&sat=-100');
-      background-size: cover;
-      background-position: center;
+    /* Subtle scale/opacity variation when animating */
+    .flag-copy .inner {
+      animation-name: floatY;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      animation-duration: 24s; /* overridden inline with --dur */
+      animation-delay: 0s;     /* overridden inline with --delay */
     }
 
-    .reveal {
-      opacity: 0;
-      transform: translateY(12px) scale(.995);
-      transition: opacity 600ms cubic-bezier(.2,.9,.2,1), transform 600ms cubic-bezier(.2,.9,.2,1);
-      will-change: opacity, transform;
-    }
-    .reveal.active {
-      opacity: 1;
-      transform: none;
+    /* Ensure main content is above the decorative layer */
+    main { position: relative; z-index: 10; }
+    header { position: relative; z-index: 50; }
+
+    /* small screens tweak to avoid too many elements */
+    @media (max-width: 480px) {
+      :root { --flag-opacity: 0.06; }
+      .flag-copy .inner { font-size: clamp(1.8rem, 10vw, 4rem); }
     }
 
-    .input-focus-glow:focus {
-      box-shadow: 0 6px 24px rgba(11,97,172,0.14);
-    }
-
-    .swiper-button-next,
-    .swiper-button-prev {
-      color: #fff;
-      opacity: 0.9;
-    }
-
-    .hero-content *::selection {
-      background: rgba(255,255,255,0.06);
-    }
+    /* keep other styles from previous file */
+    .reveal { opacity: 0; transform: translateY(12px) scale(.995); transition: opacity 600ms cubic-bezier(.2,.9,.2,1), transform 600ms cubic-bezier(.2,.9,.2,1); will-change: opacity, transform; }
+    .reveal.active { opacity: 1; transform: none; }
+    .input-focus-glow:focus { box-shadow: 0 6px 24px rgba(11,97,172,0.14); }
+    .swiper-button-next, .swiper-button-prev { color: #fff; opacity: 0.9; }
+    .hero-content *::selection { background: rgba(255,255,255,0.06); }
   </style>
 </head>
 <body class="antialiased font-body">
+
+  <!-- Decorative repeating H1 (Russian-flag gradient) -->
+  <div id="flagPattern" aria-hidden="true"></div>
 
   <!-- Navigation (sticky) -->
   <header class="sticky top-0 z-50 bg-gradient-to-b from-black/80 via-black/50 to-transparent backdrop-blur-sm border-b border-black/40">
@@ -116,7 +141,7 @@
     <div id="mobileMenu" class="hidden md:hidden border-t border-black/30">
       <div class="px-6 py-4 flex flex-col gap-3">
         <a href="#about" class="text-sm py-2 rounded hover:bg-white/3">О подразделении</a>
-        <a href="#activities" class="text-sm py-2 rounded hover:bg-white/3">Деятельность</a>
+        <a href="#activities" class="text-sm py-2 rounded hover:bg.white/3">Деятельность</a>
         <a href="#contact" class="text-sm py-2 rounded hover:bg-white/3">Обратная связь</a>
       </div>
     </div>
@@ -125,11 +150,6 @@
   <main>
     <!-- HERO -->
     <section id="hero" class="relative hero-bg min-h-screen flex items-center justify-center">
-      <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
-        <h1 class="flag-gradient-text transform rotate-45 text-[7rem] md:text-[9rem] lg:text-[12rem] leading-none font-extrabold select-none">
-          Специальное подразделение
-        </h1>
-      </div>
 
       <div class="absolute inset-0 bg-black/72"></div>
 
@@ -148,7 +168,7 @@
           Мы — элитное подразделение, выполняющее сложнейшие задачи и операции. Отбор строгий, подготовка интенсивная и требования высоки.
         </p>
 
-        <div class="flex items-centerjustify-center gap-4 reveal" data-delay="460">
+        <div class="flex items-center justify-center gap-4 reveal" data-delay="460">
           <a href="#recruit" class="inline-flex items-center gap-3 px-6 py-3 rounded-md bg-accent-red text-white font-semibold shadow hover:scale-105 transform transition">Подать заявку</a>
           <a href="#activities" class="inline-flex items-center gap-3 px-6 py-3 rounded-md bg-white/6 text-white hover:scale-105 transform transition">Узнать больше</a>
         </div>
@@ -161,7 +181,7 @@
         <div class="bg-panel-gray p-8 rounded-lg border border-black/40 shadow-lg reveal" data-delay="80">
           <h3 class="text-xl font-semibold mb-3">О подразделении</h3>
           <p class="text-gray-300/90 leading-relaxed">
-            Подразделение создано для выполнения задач повышенной сложности в условиях, требующих высокой мобильности, точного планирования и слаженной командной работы.
+            Подразделение создано для выполнения задач повышенной сложности в условиях, требующих высокой моб�[...]
           </p>
         </div>
 
@@ -198,7 +218,7 @@
               <div class="swiper-slide relative rounded overflow-hidden">
                 <img src="assets/images/2.jpg" alt="Разведывательные операции" class="absolute inset-0 w-full h-full object-cover">
                 <div class="relative z-10 bg-black/40 p-6 rounded text-center max-w-xl mx-auto">
-                  <h4 class="text-lg font-semibold">Разведыв��тельные операции</h4>
+                  <h4 class="text-lg font-semibold">Разведывательные операции</h4>
                   <p class="text-sm text-gray-200/90 mt-2">Действия в сложных условиях с упором на точность и скрытность.</p>
                 </div>
               </div>
@@ -241,24 +261,24 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <label class="block">
               <span class="text-xs text-gray-300">ФИО</span>
-              <input type="text" name="name" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/10">
+              <input type="text" name="name" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outl[...]
             </label>
 
             <label class="block">
               <span class="text-xs text-gray-300">Телефон</span>
-              <input type="tel" name="phone" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/10">
+              <input type="tel" name="phone" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outl[...]
             </label>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <label class="block">
               <span class="text-xs text-gray-300">Электронная почта</span>
-              <input type="email" name="email" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/10">
+              <input type="email" name="email" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:ou[...]
             </label>
 
             <label class="block">
               <span class="text-xs text-gray-300">Служебный статус</span>
-              <select name="service_status" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white focus:outline-none focus:ring-2">
+              <select name="service_status" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white focus:outline-none focus:ring-2"[...]
                 <option value="">— Выберите статус —</option>
                 <option>Служил срочную службу</option>
                 <option>Не служил, есть приписное</option>
@@ -269,7 +289,7 @@
           </div>
 
           <div class="flex items-center justify-between gap-4">
-            <button id="submitBtn" type="submit" class="inline-flex items-center gap-3 px-5 py-3 rounded-md bg-accent-blue text-white font-semibold hover:scale-105 transform transition reveal" data-delay="0">
+            <button id="submitBtn" type="submit" class="inline-flex items-center gap-3 px-5 py-3 rounded-md bg-accent-blue text-white font-semibold hover:scale-105 transform transition reveal" da[...]
               <svg id="btnSpinner" class="hidden animate-spin w-4 h-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
@@ -312,6 +332,57 @@
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
   <script>
+    // Create repeating flag H1 pattern across the viewport and animate them slowly
+    (function createFlagPattern(){
+      const container = document.getElementById('flagPattern');
+      if (!container) return;
+
+      function build() {
+        container.innerHTML = '';
+        const spacingX = 360; // approximate px between centers horizontally
+        const spacingY = 260; // approximate px vertically
+        const cols = Math.max(1, Math.ceil(window.innerWidth / spacingX));
+        const rows = Math.max(1, Math.ceil(window.innerHeight / spacingY));
+        const total = cols * rows;
+
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const el = document.createElement('h1');
+            el.className = 'flag-copy';
+            const left = (c + 0.5) * (100 / cols);
+            const top = (r + 0.5) * (100 / rows);
+            el.style.left = left + '%';
+            el.style.top = top + '%';
+
+            // randomize subtle differences
+            const dur = (18 + Math.random() * 18).toFixed(2) + 's';
+            const delay = (Math.random() * -18).toFixed(2) + 's'; // negative to desync
+            const rot = (-18 + Math.random() * 8).toFixed(2) + 'deg';
+            el.style.setProperty('--dur', dur);
+            el.style.setProperty('--delay', delay);
+            el.style.transform = `translate(-50%, -50%) rotate(${rot})`;
+
+            const inner = document.createElement('span');
+            inner.className = 'inner';
+            inner.textContent = 'Специальное подразделение';
+            // apply inline animation vars
+            inner.style.animationDuration = dur;
+            inner.style.animationDelay = delay;
+
+            el.appendChild(inner);
+            container.appendChild(el);
+          }
+        }
+      }
+
+      build();
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(build, 250);
+      });
+    })();
+
     // Initialize Swiper safely and provide fallback for reveal animations
     try {
       if (typeof Swiper !== 'undefined') {
