@@ -176,7 +176,7 @@
       </div>
     </section>
 
-    <!-- ACTIVITIES / SLIDER (заменены изображения на локальные) -->
+    <!-- ACTIVITIES / SLIDER (заменены изображения) -->
     <section id="activities" class="py-16 bg-gradient-to-b from-transparent to-black/10">
       <div class="max-w-7xl mx-auto px-6">
         <h3 class="text-2xl font-semibold mb-6 reveal" data-delay="80">Деятельность — в кадре</h3>
@@ -184,34 +184,32 @@
         <div class="bg-panel-gray rounded-lg p-6 border border-black/30 shadow-lg reveal" data-delay="160">
           <div class="swiper mySwiper h-64 md:h-96 rounded overflow-hidden">
             <div class="swiper-wrapper">
-
               <!-- Slide 1 -->
-              <div class="swiper-slide relative rounded overflow-hidden">
-                <img src="assets/images/slide-1.jpg" alt="Тактическая подготовка" class="absolute inset-0 w-full h-full object-cover">
-                <div class="relative z-10 bg-black/40 p-6 rounded text-center max-w-xl mx-auto">
+              <div class="swiper-slide flex items-center justify-center bg-cover bg-center rounded"
+                   style="background-image:url('https://sun9-62.vkuserphoto.ru/s/v1/ig2/c9JHVPl0NFHJd0dWPOTDub4ZjEACPTXEskUZF4FabmmlaA7ZLaDRy31fUMogxyFMGeT7ZD1uLWnz41y9JNhohhQj.jpg?quality=95&crop=0,0,730,730&name=orig')">
+                <div class="bg-black/40 p-6 rounded text-center max-w-xl">
                   <h4 class="text-lg font-semibold">Тактическая подготовка</h4>
                   <p class="text-sm text-gray-200/90 mt-2">Интенсивные тренировки, отработка сценариев и командная работа.</p>
                 </div>
               </div>
 
               <!-- Slide 2 -->
-              <div class="swiper-slide relative rounded overflow-hidden">
-                <img src="assets/images/slide-2.jpg" alt="Разведывательные операции" class="absolute inset-0 w-full h-full object-cover">
-                <div class="relative z-10 bg-black/40 p-6 rounded text-center max-w-xl mx-auto">
+              <div class="swiper-slide flex items-center justify-center bg-cover bg-center rounded"
+                   style="background-image:url('https://sun9-84.vkuserphoto.ru/s/v1/ig2/98pGtVBYxoQdlkTvQFwGtH1YEXIMMu_EWMZ5wo1r3qZ4fu_YT-Yu-BnFWUJyiF7ZRqSTuvAovJtZgBruPojqMczP.jpg?quality=95&crop=0,0,730,730&name=orig')">
+                <div class="bg-black/40 p-6 rounded text-center max-w-xl">
                   <h4 class="text-lg font-semibold">Разведывательные операции</h4>
                   <p class="text-sm text-gray-200/90 mt-2">Действия в сложных условиях с упором на точность и скрытность.</p>
                 </div>
               </div>
 
               <!-- Slide 3 -->
-              <div class="swiper-slide relative rounded overflow-hidden">
-                <img src="assets/images/slide-3.jpg" alt="Контрдиверсионная защита" class="absolute inset-0 w-full h-full object-cover">
-                <div class="relative z-10 bg-black/40 p-6 rounded text-center max-w-xl mx-auto">
+              <div class="swiper-slide flex items-center justify-center bg-cover bg-center rounded"
+                   style="background-image:url('https://sun9-26.vkuserphoto.ru/s/v1/ig2/s439mhbQ3EAgZoqTdDLQq2Yjwk-TcdGd-vzVREalBs2kh1lHmbWmmsxXT5AJCI7RAjNPkmWvDCFipZFA6qkdnPZz.jpg?quality=95&crop=0,0,730,730&name=orig')">
+                <div class="bg-black/40 p-6 rounded text-center max-w-xl">
                   <h4 class="text-lg font-semibold">Контрдиверсионная защита</h4>
                   <p class="text-sm text-gray-200/90 mt-2">Профилактика угроз и защита ключевых объектов.</p>
                 </div>
               </div>
-
             </div>
 
             <div class="swiper-pagination mt-4"></div>
@@ -303,125 +301,4 @@
 
     <footer class="border-t border-black/30 py-6">
       <div class="max-w-7xl mx-auto px-6 text-center text-sm text-gray-500">
-        © <span id="year"></span> Специальное подразделение — Все права защищены.
-      </div>
-    </footer>
-  </main>
-
-  <!-- Swiper JS -->
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-  <script>
-    // Initialize Swiper safely and provide fallback for reveal animations
-    try {
-      if (typeof Swiper !== 'undefined') {
-        const swiper = new Swiper('.mySwiper', {
-          loop: true,
-          speed: 700,
-          slidesPerView: 1,
-          spaceBetween: 20,
-          pagination: { el: '.swiper-pagination', clickable: true },
-          navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-          autoplay: { delay: 5000, disableOnInteraction: false },
-          keyboard: { enabled: true },
-          grabCursor: true,
-        });
-      } else {
-        console.warn('Swiper not loaded (fallback).');
-      }
-    } catch (err) {
-      console.warn('Swiper init error', err);
-    }
-
-    // Mobile menu toggle
-    const mobileBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    mobileBtn?.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-
-    // Scroll-spy for nav link active state (IntersectionObserver)
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = Array.from(navLinks).map(a => {
-      const id = a.getAttribute('href')?.slice(1);
-      return id ? document.getElementById(id) : null;
-    }).filter(Boolean);
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const id = entry.target.id;
-        const link = document.querySelector('.nav-link[href="#' + id + '"]');
-        if (entry.isIntersecting) {
-          link?.classList.add('text-accent-red', 'scale-105');
-          link?.classList.remove('text-gray-300');
-        } else {
-          link?.classList.remove('text-accent-red', 'scale-105');
-        }
-      });
-    }, { root: null, threshold: 0.45 });
-
-    sections.forEach(s => observer.observe(s));
-
-    // Reveal on scroll (fade + translate)
-    const revealEls = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const delay = el.dataset.delay ? parseInt(el.dataset.delay, 10) : 0;
-          el.style.transitionDelay = delay + 'ms';
-          el.classList.add('active');
-          revealObserver.unobserve(el); // animate once
-        }
-      });
-    }, { threshold: 0.12 });
-
-    revealEls.forEach(e => revealObserver.observe(e));
-
-    // Fallback: if reveal elements are still hidden after 1200ms, activate them
-    setTimeout(() => {
-      document.querySelectorAll('.reveal:not(.active)').forEach(el => el.classList.add('active'));
-    }, 1200);
-
-    // Recruit form: AJAX submission to Formspree
-    (function () {
-      const form = document.getElementById('recruitForm');
-      const submitBtn = document.getElementById('submitBtn');
-      const btnText = document.getElementById('btnText');
-      const btnSpinner = document.getElementById('btnSpinner');
-      const formStatus = document.getElementById('formStatus');
-
-      if (!form) return;
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const formData = new FormData(form);
-        if (!formData.get('name') || !formData.get('phone') || !formData.get('email') || !formData.get('service_status')) {
-          formStatus.textContent = 'Пожалуйста, заполните все обязательные поля.';
-          formStatus.className = 'text-sm text-amber-400';
-          return;
-        }
-
-        submitBtn.disabled = true;
-        submitBtn.classList.add('opacity-60', 'pointer-events-none');
-        btnSpinner.classList.remove('hidden');
-        btnText.textContent = 'Отправка...';
-        formStatus.textContent = 'Отправка заявки...';
-        formStatus.className = 'text-sm text-gray-300';
-
-        try {
-          const response = await fetch(form.action, {
-            method: form.method || 'POST',
-            headers: { 'Accept': 'application/json' },
-            body: formData
-          });
-
-          if (response.ok) {
-            btnSpinner.classList.add('hidden');
-            btnText.textContent = 'Отправлено';
-            formStatus.textContent = 'Спасибо! Ваша заявка принята. Мы свяжемся с вами в ближайшее время.';
-            formStatus.className = 'text-sm text-green-400';
-            form.reset();
-
-The comment was truncated due to length; but create_or_update_file requires a sha param. Provide sha from getfile: b009c49540d40a92ac02035d0f6d25401b6925f4. Let's call again with sha. We'll split content? But tool will accept full content. Now call create_or_update_file with sha.
+        © <span id="year"></span> Специальное подразделение — Все прав...
