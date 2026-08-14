@@ -8,6 +8,7 @@
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
+    // Tailwind config extension for custom colors (olive drab / deep grays)
     tailwind.config = {
       theme: {
         extend: {
@@ -28,10 +29,11 @@
     }
   </script>
 
-  <!-- Swiper CSS -->
+  <!-- Swiper CSS (CDN) -->
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
   <style>
+    /* Page base */
     body {
       background: radial-gradient(1200px 600px at 10% 10%, rgba(40,40,40,0.35), transparent),
                   linear-gradient(180deg, #050505, #0b0b0b 60%);
@@ -40,27 +42,31 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
+    /* Rotated giant background text: very subtle texture */
     .flag-gradient-text {
       background: linear-gradient(90deg, #ffffff 0%, #0b61ac 45%, #b71c1c 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      opacity: 0.06;
+      opacity: 0.06; /* very subtle so it doesn't interfere */
     }
 
+    /* Smooth scroll offset for sticky header */
     :target:before {
       content: "";
       display: block;
-      height: 84px;
+      height: 84px; /* header height */
       margin-top: -84px;
     }
 
+    /* Hero background placeholder */
     .hero-bg {
-      background-image: url('https://images.unsplash.com/photo-1533560902384-6ec2253a1b1c?q=80&w=1600&auto=format&fit=crop&sat=-100');
+      background-image: url('https://images.unsplash.com/photo-1533560902384-6ec2253a1b1c?q=80&w=1600&auto=format&fit=crop&sat=-100'); /* placeholder */
       background-size: cover;
       background-position: center;
     }
 
+    /* Reveal animation helper (fade + slight translate) */
     .reveal {
       opacity: 0;
       transform: translateY(12px) scale(.995);
@@ -72,16 +78,19 @@
       transform: none;
     }
 
+    /* Small accessible focus glow for inputs using pseudo-element fallback if needed */
     .input-focus-glow:focus {
       box-shadow: 0 6px 24px rgba(11,97,172,0.14);
     }
 
+    /* Make swiper nav buttons more visible on dark bg */
     .swiper-button-next,
     .swiper-button-prev {
       color: #fff;
       opacity: 0.9;
     }
 
+    /* Slightly reduce text selection glare in hero */
     .hero-content *::selection {
       background: rgba(255,255,255,0.06);
     }
@@ -93,15 +102,21 @@
   <header class="sticky top-0 z-50 bg-gradient-to-b from-black/80 via-black/50 to-transparent backdrop-blur-sm border-b border-black/40">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
       <a href="#hero" class="flex items-center gap-3">
-        <!-- Logo image (no circular background) -->
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Coat_of_Arms_of_the_Russian_Federation_2.svg/1920px-Coat_of_the_Russian_Federation_2.svg.png" alt="Герб России" class="w-10 h-10 object-contain" />
+        <svg class="w-10 h-10 text-white" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="64" height="64" rx="6" fill="#0b0b0b"></rect>
+          <g fill="#fff" opacity="0.95">
+            <circle cx="32" cy="20" r="3"></circle>
+            <path d="M16 46c6-6 20-6 32 0-6 6-20 6-32 0z"></path>
+          </g>
+        </svg>
         <span class="text-lg font-display tracking-wider">Спецподразделение</span>
       </a>
 
       <nav aria-label="Main navigation" class="hidden md:flex items-center gap-6">
         <a href="#about" class="nav-link text-sm px-3 py-2 transform transition duration-200 rounded hover:scale-105 hover:text-white/90 active:scale-95">О подразделении</a>
         <a href="#activities" class="nav-link text-sm px-3 py-2 transform transition duration-200 rounded hover:scale-105 hover:text-white/90 active:scale-95">Деятельность</a>
-        <a href="#contact" class="nav-link text-sm px-3 py-2 transform transition duration-200 rounded hover:scale-105 hover:text-white/90 active:scale-95">Обратная связь</a>
+        <a href="#recruit" class="nav-link text-sm px-3 py-2 transform transition duration-200 rounded hover:scale-105 hover:text-white/90 active:scale-95">Набор</a>
+        <a href="#contact" class="nav-link text-sm px-3 py-2 transform transition duration-200 rounded hover:scale-105 hover:text-white/90 active:scale-95">Контакты</a>
       </nav>
 
       <div class="md:hidden">
@@ -118,30 +133,42 @@
       <div class="px-6 py-4 flex flex-col gap-3">
         <a href="#about" class="text-sm py-2 rounded hover:bg-white/3">О подразделении</a>
         <a href="#activities" class="text-sm py-2 rounded hover:bg-white/3">Деятельность</a>
-        <a href="#contact" class="text-sm py-2 rounded hover:bg-white/3">Обратная связь</a>
+        <a href="#recruit" class="text-sm py-2 rounded hover:bg-white/3">Набор</a>
+        <a href="#contact" class="text-sm py-2 rounded hover:bg-white/3">Контакты</a>
       </div>
     </div>
   </header>
 
+  <!-- HERO -->
   <main>
-    <!-- HERO -->
     <section id="hero" class="relative hero-bg min-h-screen flex items-center justify-center">
+      <!-- Rotated background typographic element -->
       <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
         <h1 class="flag-gradient-text transform rotate-45 text-[7rem] md:text-[9rem] lg:text-[12rem] leading-none font-extrabold select-none">
           Специальное подразделение
         </h1>
       </div>
 
+      <!-- Dark overlay for high contrast -->
       <div class="absolute inset-0 bg-black/72"></div>
 
+      <!-- Hero content overlay -->
       <div class="relative z-10 max-w-5xl mx-auto px-6 py-24 text-center hero-content">
-        <!-- Emblem: PNG logo without circular container -->
-        <div class="mx-auto mb-6 reveal" data-delay="100">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Coat_of_Arms_of_the_Russian_Federation_2.svg/1920px-Coat_of_the_Russian_Federation_2.svg.png" alt="Герб России" class="w-24 h-24 object-contain mx-auto" />
+        <!-- SVG placeholder for Russian Coat of Arms (stylized) -->
+        <div class="mx-auto w-36 h-36 rounded-full bg-black/60 border border-white/8 flex items-center justify-center mb-6 reveal" data-delay="100">
+          <svg viewBox="0 0 120 120" class="w-24 h-24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="120" height="120" rx="16" fill="none"></rect>
+            <!-- stylized double-headed eagle placeholder -->
+            <g fill="#fff" opacity="0.95">
+              <path d="M30 70c10-18 40-18 50 0 0 0-10-10-20-10s-20 10-30 10z"/>
+              <circle cx="45" cy="40" r="4"></circle>
+              <circle cx="75" cy="40" r="4"></circle>
+            </g>
+          </svg>
         </div>
 
         <h2 class="text-3xl md:text-5xl lg:text-6xl font-display font-extrabold tracking-tight leading-tight mb-4 reveal" data-delay="220">
-          Специальный полк
+          Отбор и подготовка бойцов специального назначения
         </h2>
         <p class="max-w-3xl mx-auto text-sm md:text-base text-gray-300/90 mb-8 reveal" data-delay="340">
           Мы — элитное подразделение, выполняющее сложнейшие задачи и операции. Отбор строгий, подготовка интенсивная, служба — честью и долгом.
@@ -175,7 +202,7 @@
       </div>
     </section>
 
-    <!-- ACTIVITIES / SLIDER (заменены изображения) -->
+    <!-- ACTIVITIES / SLIDER -->
     <section id="activities" class="py-16 bg-gradient-to-b from-transparent to-black/10">
       <div class="max-w-7xl mx-auto px-6">
         <h3 class="text-2xl font-semibold mb-6 reveal" data-delay="80">Деятельность — в кадре</h3>
@@ -183,24 +210,21 @@
         <div class="bg-panel-gray rounded-lg p-6 border border-black/30 shadow-lg reveal" data-delay="160">
           <div class="swiper mySwiper h-64 md:h-96 rounded overflow-hidden">
             <div class="swiper-wrapper">
-              <!-- Slide 1 -->
-              <div class="swiper-slide flex items-center justify-center bg-cover bg-center rounded" style="background-image:url('https://sun9-62.vkuserphoto.ru/s/v1/ig2/c9JHVPl0NFHJd0dWPOTDub4ZjEACPTXEskUZF4FabmmlaA7ZLaDRy31fUMogxyFMGeT7ZD1uLWnz41y9JNhohhQj.jpg?quality=95&crop=0,0,2560,1835&as=32x23,48x34,72x52,108x77,160x115,240x172,360x258,480x344,540x387,640x459,720x516,1080x774,1280x917,1440x1032,2560x1835&from=bu&u=RMKyjN53Yy90IJ3-XfLQZ8Dgqnhq_z0kOOKKK6XjF70&cs=1280x0');">
+              <div class="swiper-slide flex items-center justify-center bg-cover bg-center rounded" style="background-image:url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1600&auto=format&fit=crop&sat=-100');">
                 <div class="bg-black/40 p-6 rounded text-center max-w-xl">
                   <h4 class="text-lg font-semibold">Тактическая подготовка</h4>
                   <p class="text-sm text-gray-200/90 mt-2">Интенсивные тренировки, отработка сценариев и командная работа.</p>
                 </div>
               </div>
 
-              <!-- Slide 2 -->
-              <div class="swiper-slide flex items-center justify-center bg-cover bg-center rounded" style="background-image:url('https://sun9-84.vkuserphoto.ru/s/v1/ig2/98pGtVBYxoQdlkTvQFwGtH1YEXIMMu_EWMZ5wo1r3qZ4fu_YT-Yu-BnFWUJyiF7ZRqSTuvAovJtZgBruPojqMczP.jpg?quality=95&crop=0,0,960,1280&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,960x1280&from=bu&u=Y5GLjfTAHhpBJBzCGlY7Eyr9rw9_yV_Umo2Zzkr57xg&cs=960x0');">
+              <div class="swiper-slide flex items-center justify-center bg-cover bg-center rounded" style="background-image:url('https://images.unsplash.com/photo-1505238680356-667803448bb6?q=80&w=1600&auto=format&fit=crop&sat=-100');">
                 <div class="bg-black/40 p-6 rounded text-center max-w-xl">
                   <h4 class="text-lg font-semibold">Разведывательные операции</h4>
                   <p class="text-sm text-gray-200/90 mt-2">Действия в сложных условиях с упором на точность и скрытность.</p>
                 </div>
               </div>
 
-              <!-- Slide 3 -->
-              <div class="swiper-slide flex items-center justify-center bg-cover bg-center rounded" style="background-image:url('https://sun9-26.vkuserphoto.ru/s/v1/ig2/s439mhbQ3EAgZoqTdDLQq2Yjwk-TcdGd-vzVREalBs2kh1lHmbWmmsxXT5AJCI7RAjNPkmWvDCFipZFA6qkdnPZz.jpg?quality=95&crop=0,0,1179,784&as=32x21,48x32,72x48,108x72,160x106,240x160,360x239,480x319,540x359,640x426,720x479,1080x718,1179x784&from=bu&u=GagN9QBmfpCnj0SI7XE5NZJOvpnCsllWde77FM9_a60&cs=1179x0');">
+              <div class="swiper-slide flex items-center justify-center bg-cover bg-center rounded" style="background-image:url('https://images.unsplash.com/photo-1544986581-efac024faf62?q=80&w=1600&auto=format&fit=crop&sat=-100');">
                 <div class="bg-black/40 p-6 rounded text-center max-w-xl">
                   <h4 class="text-lg font-semibold">Контрдиверсионная защита</h4>
                   <p class="text-sm text-gray-200/90 mt-2">Профилактика угроз и защита ключевых объектов.</p>
@@ -208,6 +232,7 @@
               </div>
             </div>
 
+            <!-- Pagination / Navigation -->
             <div class="swiper-pagination mt-4"></div>
             <div class="swiper-button-prev text-white"></div>
             <div class="swiper-button-next text-white"></div>
@@ -222,7 +247,16 @@
         <h3 class="text-2xl font-semibold mb-4">Заявка на отбор</h3>
         <p class="text-sm text-gray-300/90 mb-6">Заполните форму — мы свяжемся для предварительного отбора и инструктажа.</p>
 
-        <form id="recruitForm" action="https://formspree.io/f/xjybooap" method="POST" class="space-y-4" novalidate autocomplete="on" aria-describedby="formHelp">
+        <!-- Form posts to Formspree; AJAX handles submission to avoid full page reload -->
+        <form id="recruitForm"
+              action="https://formspree.io/f/xjybooap"
+              method="POST"
+              class="space-y-4"
+              novalidate
+              autocomplete="on"
+              aria-describedby="formHelp"
+        >
+          <!-- Optional: subject for the Formspree email -->
           <input type="hidden" name="_subject" value="Новая заявка с лендинга">
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -237,3 +271,215 @@
             </label>
           </div>
 
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <label class="block">
+              <span class="text-xs text-gray-300">Электронная почта</span>
+              <input type="email" name="email" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent-blue focus:border-accent-blue transition duration-200 input-focus-glow reveal" data-delay="200" placeholder="you@example.com" />
+            </label>
+
+            <label class="block">
+              <span class="text-xs text-gray-300">Служебный статус</span>
+              <select name="service_status" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-accent-blue focus:border-accent-blue transition duration-200 input-focus-glow reveal" data-delay="240">
+                <option value="">— Выберите статус —</option>
+                <option>Служил срочную службу</option>
+                <option>Не служил, есть приписное</option>
+                <option>Не служил, есть военный билет</option>
+                <option>Служил как контрактник</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="flex items-center justify-between gap-4">
+            <button id="submitBtn" type="submit" class="inline-flex items-center gap-3 px-5 py-3 rounded-md bg-accent-blue text-white font-semibold hover:scale-105 transform transition reveal" data-delay="320" aria-live="polite">
+              <svg id="btnSpinner" class="hidden animate-spin w-4 h-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+              </svg>
+              <span id="btnText">Отправить заявку</span>
+            </button>
+
+            <div class="flex-1 text-right">
+              <!-- Accessible status region -->
+              <div id="formStatus" class="text-sm" role="status" aria-live="polite" aria-atomic="true"></div>
+              <div id="formHelp" class="sr-only">Поля обязательны для заполнения.</div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- CONTACT / FOOTER -->
+    <section id="contact" class="max-w-7xl mx-auto px-6 py-12 reveal" data-delay="80">
+      <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+        <div class="text-gray-300/90">
+          <h4 class="font-semibold mb-2">Контакт</h4>
+          <p class="text-sm">Оперативный отдел: +7 (900) 000-00-00</p>
+          <p class="text-sm">E-mail: ops@example.org</p>
+        </div>
+
+        <div class="text-gray-400 text-sm">
+          <p>Адрес офиса: г. Москва, конфиденциально</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="border-t border-black/30 py-6">
+      <div class="max-w-7xl mx-auto px-6 text-center text-sm text-gray-500">
+        © <span id="year"></span> Специальное подразделение — Все права защищены.
+      </div>
+    </footer>
+  </main>
+
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+  <script>
+    // Initialize Swiper
+    const swiper = new Swiper('.mySwiper', {
+      loop: true,
+      speed: 700,
+      slidesPerView: 1,
+      spaceBetween: 20,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      keyboard: {
+        enabled: true,
+      },
+      grabCursor: true,
+    });
+
+    // Mobile menu toggle
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileBtn?.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Scroll-spy for nav link active state (IntersectionObserver)
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = Array.from(navLinks).map(a => {
+      const id = a.getAttribute('href')?.slice(1);
+      return id ? document.getElementById(id) : null;
+    }).filter(Boolean);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.id;
+        const link = document.querySelector('.nav-link[href="#' + id + '"]');
+        if (entry.isIntersecting) {
+          link?.classList.add('text-accent-red', 'scale-105');
+          link?.classList.remove('text-gray-300');
+        } else {
+          link?.classList.remove('text-accent-red', 'scale-105');
+        }
+      });
+    }, { root: null, threshold: 0.45 });
+
+    sections.forEach(s => observer.observe(s));
+
+    // Reveal on scroll (fade + translate)
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const delay = el.dataset.delay ? parseInt(el.dataset.delay, 10) : 0;
+          el.style.transitionDelay = delay + 'ms';
+          el.classList.add('active');
+          revealObserver.unobserve(el); // animate once
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(e => revealObserver.observe(e));
+
+    // Recruit form: AJAX submission to Formspree
+    (function () {
+      const form = document.getElementById('recruitForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const btnText = document.getElementById('btnText');
+      const btnSpinner = document.getElementById('btnSpinner');
+      const formStatus = document.getElementById('formStatus');
+
+      if (!form) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Basic client-side validation (HTML required attributes usually handle this)
+        const formData = new FormData(form);
+        if (!formData.get('name') || !formData.get('phone') || !formData.get('email') || !formData.get('service_status')) {
+          formStatus.textContent = 'Пожалуйста, заполните все обязательные поля.';
+          formStatus.className = 'text-sm text-amber-400';
+          return;
+        }
+
+        // UI: show sending state
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-60', 'pointer-events-none');
+        btnSpinner.classList.remove('hidden');
+        btnText.textContent = 'Отправка...';
+        formStatus.textContent = 'Отправка заявки...';
+        formStatus.className = 'text-sm text-gray-300';
+
+        try {
+          const response = await fetch(form.action, {
+            method: form.method || 'POST',
+            headers: {
+              'Accept': 'application/json'
+            },
+            body: formData
+          });
+
+          if (response.ok) {
+            // success
+            btnSpinner.classList.add('hidden');
+            btnText.textContent = 'Отправлено';
+            formStatus.textContent = 'Спасибо! Ваша заявка принята. Мы свяжемся с вами в ближайшее время.';
+            formStatus.className = 'text-sm text-green-400';
+            form.reset();
+
+            // re-enable button after a short delay and restore text
+            setTimeout(() => {
+              submitBtn.disabled = false;
+              submitBtn.classList.remove('opacity-60', 'pointer-events-none');
+              btnText.textContent = 'Отправить заявку';
+            }, 4000);
+          } else {
+            // handle validation errors from Formspree (returns JSON)
+            const data = await response.json().catch(() => null);
+            const errMsg = data && data.error ? data.error : 'Ошибка при отправке. Пожалуйста, попробуйте ещё раз.';
+            btnSpinner.classList.add('hidden');
+            btnText.textContent = 'Попробовать снова';
+            formStatus.textContent = errMsg;
+            formStatus.className = 'text-sm text-rose-400';
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('opacity-60', 'pointer-events-none');
+          }
+        } catch (err) {
+          console.error('Form submission error', err);
+          btnSpinner.classList.add('hidden');
+          btnText.textContent = 'Попробовать снова';
+          formStatus.textContent = 'Сетевой сбой. Проверьте соединение и попробуйте снова.';
+          formStatus.className = 'text-sm text-rose-400';
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('opacity-60', 'pointer-events-none');
+        }
+      });
+    })();
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
