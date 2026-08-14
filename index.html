@@ -145,7 +145,7 @@
           Специальный полк
         </h2>
         <p class="max-w-3xl mx-auto text-sm md:text-base text-gray-300/90 mb-8 reveal" data-delay="340">
-          Мы — элитное подразделение, выполняющее сложнейшие задачи и операции. Отбор строгий, подготовка интенсивная, служба — честью и долгом.
+          Мы — элитное подразделение, выполняющее сложнейшие задачи и операции. Отбор строгий, подготовка интенсивная.
         </p>
 
         <div class="flex items-center justify-center gap-4 reveal" data-delay="460">
@@ -161,7 +161,7 @@
         <div class="bg-panel-gray p-8 rounded-lg border border-black/40 shadow-lg reveal" data-delay="80">
           <h3 class="text-xl font-semibold mb-3">О подразделении</h3>
           <p class="text-gray-300/90 leading-relaxed">
-            Подразделение создано для выполнения задач повышенной сложности в условиях, требующих высокой мобильности, точности и конфиденциальности. Мы ценим дисциплину, мастерство и готовность действовать в интересах безопасности.
+            Подразделение создано для выполнения задач повышенной сложности в условиях, требующих высокой мобилизации и профессионализма.
           </p>
         </div>
 
@@ -176,7 +176,7 @@
       </div>
     </section>
 
-    <!-- ACTIVITIES / SLIDER (заменены изображения) -->
+    <!-- ACTIVITIES / SLIDER (заменены изображения на локальные) -->
     <section id="activities" class="py-16 bg-gradient-to-b from-transparent to-black/10">
       <div class="max-w-7xl mx-auto px-6">
         <h3 class="text-2xl font-semibold mb-6 reveal" data-delay="80">Деятельность — в кадре</h3>
@@ -184,32 +184,34 @@
         <div class="bg-panel-gray rounded-lg p-6 border border-black/30 shadow-lg reveal" data-delay="160">
           <div class="swiper mySwiper h-64 md:h-96 rounded overflow-hidden">
             <div class="swiper-wrapper">
+
               <!-- Slide 1 -->
-              <div class="swiper-slide flex items-center justify-center bg-cover bg-center rounded"
-                   style="background-image:url('https://sun9-62.vkuserphoto.ru/s/v1/ig2/c9JHVPl0NFHJd0dWPOTDub4ZjEACPTXEskUZF4FabmmlaA7ZLaDRy31fUMogxyFMGeT7ZD1uLWnz41y9JNhohhQj.jpg?quality=95&crop=...&type=album');">
-                <div class="bg-black/40 p-6 rounded text-center max-w-xl">
+              <div class="swiper-slide relative rounded overflow-hidden">
+                <img src="assets/images/slide-1.jpg" alt="Тактическая подготовка" class="absolute inset-0 w-full h-full object-cover">
+                <div class="relative z-10 bg-black/40 p-6 rounded text-center max-w-xl mx-auto">
                   <h4 class="text-lg font-semibold">Тактическая подготовка</h4>
                   <p class="text-sm text-gray-200/90 mt-2">Интенсивные тренировки, отработка сценариев и командная работа.</p>
                 </div>
               </div>
 
               <!-- Slide 2 -->
-              <div class="swiper-slide flex items-center justify-center bg-cover bg-center rounded"
-                   style="background-image:url('https://sun9-84.vkuserphoto.ru/s/v1/ig2/98pGtVBYxoQdlkTvQFwGtH1YEXIMMu_EWMZ5wo1r3qZ4fu_YT-Yu-BnFWUJyiF7ZRqSTuvAovJtZgBruPojqMczP.jpg?quality=95&crop=...&type=album');">
-                <div class="bg-black/40 p-6 rounded text-center max-w-xl">
+              <div class="swiper-slide relative rounded overflow-hidden">
+                <img src="assets/images/slide-2.jpg" alt="Разведывательные операции" class="absolute inset-0 w-full h-full object-cover">
+                <div class="relative z-10 bg-black/40 p-6 rounded text-center max-w-xl mx-auto">
                   <h4 class="text-lg font-semibold">Разведывательные операции</h4>
                   <p class="text-sm text-gray-200/90 mt-2">Действия в сложных условиях с упором на точность и скрытность.</p>
                 </div>
               </div>
 
               <!-- Slide 3 -->
-              <div class="swiper-slide flex items-center justify-center bg-cover bg-center rounded"
-                   style="background-image:url('https://sun9-26.vkuserphoto.ru/s/v1/ig2/s439mhbQ3EAgZoqTdDLQq2Yjwk-TcdGd-vzVREalBs2kh1lHmbWmmsxXT5AJCI7RAjNPkmWvDCFipZFA6qkdnPZz.jpg?quality=95&crop=...&type=album');">
-                <div class="bg-black/40 p-6 rounded text-center max-w-xl">
+              <div class="swiper-slide relative rounded overflow-hidden">
+                <img src="assets/images/slide-3.jpg" alt="Контрдиверсионная защита" class="absolute inset-0 w-full h-full object-cover">
+                <div class="relative z-10 bg-black/40 p-6 rounded text-center max-w-xl mx-auto">
                   <h4 class="text-lg font-semibold">Контрдиверсионная защита</h4>
                   <p class="text-sm text-gray-200/90 mt-2">Профилактика угроз и защита ключевых объектов.</p>
                 </div>
               </div>
+
             </div>
 
             <div class="swiper-pagination mt-4"></div>
@@ -239,24 +241,24 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <label class="block">
               <span class="text-xs text-gray-300">ФИО</span>
-              <input type="text" name="name" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent-blue focus:border-accent-blue transition duration-200 input-focus-glow reveal" data-delay="120" placeholder="Иван Иванов" />
+              <input type="text" name="name" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none" />
             </label>
 
             <label class="block">
               <span class="text-xs text-gray-300">Телефон</span>
-              <input type="tel" name="phone" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent-blue focus:border-accent-blue transition duration-200 input-focus-glow reveal" data-delay="160" placeholder="+7 (___) ___-__-__" />
+              <input type="tel" name="phone" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none" />
             </label>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <label class="block">
               <span class="text-xs text-gray-300">Электронная почта</span>
-              <input type="email" name="email" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent-blue focus:border-accent-blue transition duration-200 input-focus-glow reveal" data-delay="200" placeholder="you@example.com" />
+              <input type="email" name="email" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white placeholder-gray-500 focus:outline-none" />
             </label>
 
             <label class="block">
               <span class="text-xs text-gray-300">Служебный статус</span>
-              <select name="service_status" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-accent-blue focus:border-accent-blue transition duration-200 input-focus-glow reveal" data-delay="240">
+              <select name="service_status" required aria-required="true" class="mt-1 block w-full rounded bg-black/70 border border-gray-700 px-3 py-2 text-white focus:outline-none focus:ring-2">
                 <option value="">— Выберите статус —</option>
                 <option>Служил срочную службу</option>
                 <option>Не служил, есть приписное</option>
@@ -267,7 +269,7 @@
           </div>
 
           <div class="flex items-center justify-between gap-4">
-            <button id="submitBtn" type="submit" class="inline-flex items-center gap-3 px-5 py-3 rounded-md bg-accent-blue text-white font-semibold hover:scale-105 transform transition reveal" data-delay="320" aria-live="polite">
+            <button id="submitBtn" type="submit" class="inline-flex items-center gap-3 px-5 py-3 rounded-md bg-accent-blue text-white font-semibold hover:scale-105 transform transition reveal" data-delay="200">
               <svg id="btnSpinner" class="hidden animate-spin w-4 h-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
@@ -422,35 +424,4 @@
             formStatus.className = 'text-sm text-green-400';
             form.reset();
 
-            setTimeout(() => {
-              submitBtn.disabled = false;
-              submitBtn.classList.remove('opacity-60', 'pointer-events-none');
-              btnText.textContent = 'Отправить заявку';
-            }, 4000);
-          } else {
-            const data = await response.json().catch(() => null);
-            const errMsg = data && data.error ? data.error : 'Ошибка при отправке. Пожалуйста, попробуйте ещё раз.';
-            btnSpinner.classList.add('hidden');
-            btnText.textContent = 'Попробовать снова';
-            formStatus.textContent = errMsg;
-            formStatus.className = 'text-sm text-rose-400';
-            submitBtn.disabled = false;
-            submitBtn.classList.remove('opacity-60', 'pointer-events-none');
-          }
-        } catch (err) {
-          console.error('Form submission error', err);
-          btnSpinner.classList.add('hidden');
-          btnText.textContent = 'Попробовать снова';
-          formStatus.textContent = 'Сетевой сбой. Проверьте соединение и попробуйте снова.';
-          formStatus.className = 'text-sm text-rose-400';
-          submitBtn.disabled = false;
-          submitBtn.classList.remove('opacity-60', 'pointer-events-none');
-        }
-      });
-    })();
-
-    // Footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
+The comment was truncated due to length; but create_or_update_file requires a sha param. Provide sha from getfile: b009c49540d40a92ac02035d0f6d25401b6925f4. Let's call again with sha. We'll split content? But tool will accept full content. Now call create_or_update_file with sha.
